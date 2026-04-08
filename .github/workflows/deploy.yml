@@ -23,10 +23,12 @@ jobs:
             docker pull sajithsaaji/backend-app
             docker pull sajithsaaji/frontend-app
 
-            docker stop backend || true
-            docker rm backend || true
-            docker stop frontend || true
-            docker rm frontend || true
+            # docker stop backend || true
+            # docker rm backend || true
+            # docker stop frontend || true
+            # docker rm frontend || true
+            docker stop $(docker ps -q) || true
+            docker rm $(docker ps -aq) || true
 
             docker run -d -p 5000:5000 --name backend sajithsaaji/backend-app
             docker run -d -p 3000:3000 --name frontend sajithsaaji/frontend-app
