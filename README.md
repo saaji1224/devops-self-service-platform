@@ -74,5 +74,20 @@ vi Dockerfile
   docker tag backend-app sajithsaaji/frontend-app
   docker push sajithsaaji/backend-app
    docker push sajithsaaji/frontend-app
- 
+
+
+ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm install prometheus prometheus-community/prometheus \
+  -n monitoring \
+  --set alertmanager.enabled=false \
+  --set pushgateway.enabled=false \
+  --set server.persistentVolume.enabled=false
+
+
+  helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+helm install grafana grafana/grafana -n monitoring
  
