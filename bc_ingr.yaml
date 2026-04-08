@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+  
+spec:
+  ingressClassName: traefik
+  tls:
+  - hots: 
+  - sajithsaaji.xyz
+  - api.sajithsaaji.xyz
+  secretName: tls-secret
+  rules:
+  - host: sajithsaaji.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-svc
+            port:
+              number: 3000
+
+  - host: api.sajithsaaji.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-svc
+            port:
+              number: 5000
